@@ -1,0 +1,22 @@
+# Environnements virtuels
+venv/
+env/
+ENV/
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Fichiers de configuration avec données sensibles
+.env
+*.env
+
+# Bases de données locales
+*.db
+*.sqlite3
+*.sql
+# Fichiers de logs
+*.log
+
+
