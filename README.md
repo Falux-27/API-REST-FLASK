@@ -15,6 +15,9 @@ API REST développée avec Flask pour gérer des utilisateurs et des proposition
 - Python 3.8+
 - PostgreSQL
 
+## Installer les dépendances
+pip install -r requirements.txt
+
 ## Installation
 
 1. Cloner le repository :
