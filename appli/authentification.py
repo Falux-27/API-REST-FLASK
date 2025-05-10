@@ -22,7 +22,7 @@ def create_user ():
             'message':'Le nom d\'utulisateur et le mot de passe sont obligatoires'
             }); 400
     #Hachage du mot de passe
-    mdp_crypted = hash_password(password)
+    #mdp_crypted = hash_password(password)
     
     #Verifier si l'user existe deja
     try:
