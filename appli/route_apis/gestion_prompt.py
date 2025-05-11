@@ -102,3 +102,43 @@ except Exception as erreur:
         'message': f'Erreur lors de la mise à jour du prompt: {str(erreur)}'
     }), 500
 
+#Endpoint pour afficher les prompts
+@app.route('/prompts', methods=['GET'])
+@verificateur_token(roles=['user', 'admin'])  # optionnel si tu veux sécuriser l'accès
+def afficher_prompts():
+    try:
+        curseur.execute("SELECT id_prompt, titre, contenu, prix, moyenne, etat, user_id FROM prompt")
+        prompts = curseur.fetchall()
+
+        if not prompts:
+            return jsonify({
+                'success': True,
+                'prompts': [],
+                'message': 'Aucun prompt trouvé'
+            }), 200
+
+        # Transformer chaque ligne SQL en dictionnaire
+        liste_prompts = []
+        for prompt in prompts:
+            liste_prompts.append({
+                'id_prompt': prompt[0],
+                'titre': prompt[1],
+                'contenu': prompt[2],
+                'prix': prompt[3],
+                'moyenne': prompt[4],
+                'etat': prompt[5],
+                'user_id': prompt[6]
+            })
+
+        return jsonify({
+            'success': True,
+            'prompts': liste_prompts
+        }), 200
+
+    except Exception as erreur:
+        return jsonify({
+            'success': False,
+            'message': f'Erreur lors de la récupération des prompts: {str(erreur)}'
+        }), 500
+
+
