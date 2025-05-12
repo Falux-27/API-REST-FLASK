@@ -24,7 +24,7 @@ def creation_prompt():
         }), 400
     try:
         curseur.execute(
-                'INSERT INTO prompt (titre,contenu,prix,moyenne,etat,user_id) VALUES (%s,%s,%s,%s,%s,%s),RETURNING id_prompt',
+                'INSERT INTO prompt (titre,contenu,prix,moyenne_note,etat,user_id) VALUES (%s,%s,%s,%s,%s,%s),RETURNING id_prompt',
                 (titre,contenu,prix,moyenne_note,etat,user_id,'En attente',1000))
         id_prompt = curseur.fetchone()[0]
         connexion.commit()
