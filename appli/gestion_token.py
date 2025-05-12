@@ -4,12 +4,12 @@ from functools import wraps
 from flask import request, jsonify
 from authentification import secret_key
 
-#Créer le générateur de token
+#Création du générateur de token
 
 def generateur_token(user_id, prenom , role , id_group= None):
     date_expiration = datetime.datetime.utcnow() + datetime.timedelta(hours = 24)
     #Creation d'entete
-    header = {
+    en_tete = {
             'alg': 'HS256',
             'typ': 'JWT'
             }
@@ -22,7 +22,7 @@ def generateur_token(user_id, prenom , role , id_group= None):
             'exp': date_expiration
             }
     #Combinaison des elements
-    token = jwt.encode(payload,secret_key,algoritm = 'HS256',headers = header) 
+    token = jwt.encode(payload,secret_key,algoritm = 'HS256',headers = en_tete) 
     return token
 
 
