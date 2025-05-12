@@ -5,7 +5,7 @@ from gestion_token import verificateur_token
 
 #Endpoint d'ajout de prompt
 
-@app.route('/prompts', methods=['POST'])
+@app.route('/prompts/add_prompt', methods=['POST'])
 @verificateur_token(roles=['user', 'admin'])
 def creation_prompt():
     donnee = request.get_json()
@@ -42,7 +42,7 @@ def creation_prompt():
 
 
 #Endpoint de validation/refus ou demande de modif à l'admin
-@app.route('/prompts/<int:id_prompt>/status', methods=['PUT'])
+@app.route('/prompts/<int:id_prompt>/etat', methods=['PUT'])
 @verificateur_token(roles=['admin'])
 def modifier_etat(id_prompt):
     donnee = request.get_json()
@@ -102,12 +102,14 @@ except Exception as erreur:
         'message': f'Erreur lors de la mise à jour du prompt: {str(erreur)}'
     }), 500
 
+
 #Endpoint pour afficher les prompts
+
 @app.route('/prompts', methods=['GET'])
 @verificateur_token(roles=['user', 'admin'])  # optionnel si tu veux sécuriser l'accès
 def afficher_prompts():
     try:
-        curseur.execute("SELECT id_prompt, titre, contenu, prix, moyenne, etat, user_id FROM prompt")
+        curseur.execute("SELECT id_prompt, titre, contenu, prix, moyenne_note, etat, user_id FROM prompt")
         prompts = curseur.fetchall()
 
         if not prompts:
@@ -125,7 +127,7 @@ def afficher_prompts():
                 'titre': prompt[1],
                 'contenu': prompt[2],
                 'prix': prompt[3],
-                'moyenne': prompt[4],
+                'moyenne_note': prompt[4],
                 'etat': prompt[5],
                 'user_id': prompt[6]
             })

@@ -3,7 +3,7 @@ from passlib.hash import sha256_crypt
 from app import connexion , curseur
 from gestion_token import generateur_token
 
-#Endpoint pour ajouter un user:
+#Endpoint pour creer un user:
 @app.route('/authentification/admin/add_user', methods = ['POST'])
 @verificateur_token(roles = ['admin'])
 def create_user ():
@@ -21,9 +21,7 @@ def create_user ():
             'echec': True,
             'message':'Le nom d\'utulisateur et le mot de passe sont obligatoires'
             }); 400
-    #Hachage du mot de passe
-    #mdp_crypted = hash_password(password)
-    
+     
     #Verifier si l'user existe deja
     try:
         curseur.execute("SELECT user_id FROM utilisateur WHERE user_id = %s",(user_id,))
